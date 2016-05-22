@@ -61,9 +61,9 @@ class CreateAdventure < ActiveRecord::Migration
     end
 
     create_table :mission_assignments do |t|
-      t.references :student
+      t.references :adventure_assignment
       t.references :mission
-      t.string :status, default: 'start'
+      t.boolean :completed, default: false
       t.timestamps
     end
 
