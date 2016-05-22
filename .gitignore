@@ -4,6 +4,10 @@
 # ignores css compiled files
 *.css
 
+# ignores js compiled files
+*.js
+*.js.map
+
 # ignores installed modules
 node_modules
 typings
