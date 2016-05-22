@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  controller :welcome do
-    get '/' => :index
-    get '/trocar_aparencia' => :trocar
-  end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
@@ -36,6 +32,11 @@ Rails.application.routes.draw do
     get '/question/unanswered' => :unanswered
     get '/question/:question_id' => :show
     post '/question/:question_id/answer' => :answer
+  end
+
+  controller :welcome do
+    get '/' => :index
+    get '/:partial' => :index
   end
 
   match '*foo', via: :all, to: lambda {|env| [404, {}, [{status: 404,error: "Not found"}.to_json]] }
