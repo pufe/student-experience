@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20160521211731) do
     t.string "nose_style"
     t.string "gender"
     t.string "skin_color"
+    t.string "uniform"
   end
 
 end

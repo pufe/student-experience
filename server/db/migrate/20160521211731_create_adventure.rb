@@ -52,6 +52,7 @@ class CreateAdventure < ActiveRecord::Migration
       t.string :nose_style
       t.string :gender
       t.string :skin_color
+      t.string :uniform
 
       # t.integer :level, default: 1
       # t.integer :total_xp, default: 0
