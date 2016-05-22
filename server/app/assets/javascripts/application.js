@@ -8,6 +8,8 @@ function loadUser(){
 		window.user = data.response;
 		loadProfile();
 		loadSprite();
+		loadAdventures();
+		loadQuest();
 	});
 }
 
@@ -22,6 +24,61 @@ function loadSprite(){
     avatar.find('.nose').css({backgroundImage: "url('"+window.spriteBaseUrl+'/'+student.gender+'/nariz/'+pad(student.nose_style, 2)+".png')"});
     avatar.find('.eyes').css({backgroundImage: "url('"+window.spriteBaseUrl+'/'+student.gender+'/olhos/'+pad(student.eye_color, 2)+".png')"});
     avatar.find('.uniform').css({backgroundImage: "url('"+window.spriteBaseUrl+'/'+student.gender+'/roupa/'+pad(student.uniform, 2)+".png')"});
+}
+
+function loadQuest(){
+	$.get(domain+'adventure/2/', {student_id: window.user.id}, function(data){
+		$('.info.title').text(data.response.name);
+
+		var ul = $('<ul class="quest" />');
+		var li = $('<li />');
+
+		for(var i in data.response.missions){
+			aLi = li.clone();
+			aLi.append(data.response.missions[i].name + '<a href="#" > Aceitar </a>');
+			ul.append(aLi);
+		}
+
+		$('.row.quest').append(ul);
+	});
+}
+
+function loadAdventures(){
+
+	$.get(domain+'adventure/available', {student_id: window.user.id}, function(data){
+		var questTemplate = $('.quests.template');
+		var ul = $('<ul class="adventure" />');
+		var li = $('<li />');
+		for (var i in data.response) {
+			var aQuestTemplate = questTemplate.clone().removeClass('template');
+			aUl = ul.clone();	
+			aQuestTemplate.append(aUl);
+			questTemplate.parent().prepend(aQuestTemplate);
+
+			aLi = li.clone();
+			aLi.append('<h2> Aventura: ' + data.response[i].name + '</h2>')
+			aUl.append(aLi);
+			aLi = li.clone();
+			aLi.append('<h4> ' + data.response[i].description + '</h4>')
+			aUl.append(aLi);
+			aLi = li.clone();
+			aUl.append(aLi);
+			aUl = ul.clone();
+			aLi.append(aUl);
+			aLi = li.clone();
+			aLi.append('<strong>Missões Inclusas:</strong>	');
+			aUl.append(aLi);
+			for(var j in data.response[i].missions){
+				aLi = li.clone();
+				aLi.append(data.response[i].missions[j].name);
+				aUl.append(aLi);
+			}
+			aLi = li.clone();
+			aLi.append('<a class="accept" href="/quest" > Aceitar </a>');
+			aUl.append(aLi);
+
+		}
+	});
 }
 
 function loadProfile(){

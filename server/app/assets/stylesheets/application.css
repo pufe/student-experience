@@ -14,3 +14,45 @@
 	background-repeat: no-repeat;
 	background-size: contain;
 }
+
+
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+ul.adventure > li > h2, ul.adventure > li > h4 {
+	text-align: left;
+}
+
+ul.quest > li {
+	text-align: center;
+}
+
+ul.adventure > li > ul > li {
+	text-align: center;
+}
+
+.medalha {
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: contain;
+	height: 100px;
+	margin-bottom: 10px;
+}
+
+.badge1 {
+	background-image: url('medalha.png');
+}
+
+.badge2 {
+	background-image: url('medalha2.png');
+}
+
+.badge3 {
+	background-image: url('medalha3.png');
+}
+
+.badge4 {
+	background-image: url('medalha4.png');
+}
