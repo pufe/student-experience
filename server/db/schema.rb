@@ -43,9 +43,9 @@ ActiveRecord::Schema.define(version: 20160521211731) do
   end
 
   create_table "mission_assignments", force: true do |t|
-    t.integer  "student_id"
+    t.integer  "adventure_assignment_id"
     t.integer  "mission_id"
-    t.string   "status",     default: "start"
+    t.boolean  "completed",               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

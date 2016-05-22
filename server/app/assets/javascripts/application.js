@@ -1,16 +1,30 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
-//= require jquery
-//= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+
+window.domain = 'http://192.168.16.166:3000/';
+
+window.spriteBaseUrl = '/assets/sprites';
+
+function loadUser(){
+	$.get(domain+'student/2', function(data){
+		window.user = data.response;
+		loadProfile();
+		loadSprite();
+	});
+}
+
+loadUser();
+
+function loadSprite(){
+	var avatar = $('#avatar');
+	var student = window.user;
+	console.log(avatar.find('.body'), student);
+
+    avatar.find('.body').css({backgroundImage: "url('"+window.spriteBaseUrl+'/'+student.gender+'/pele/'+student.skin_color+".png')"});
+	avatar.find('.hair').css({backgroundImage: "url('"+window.spriteBaseUrl+'/'+student.gender+'/cabelo/'+student.hair_style+'/'+student.hair_color+".png')"});
+    avatar.find('.nose').css({backgroundImage: "url('"+window.spriteBaseUrl+'/'+student.gender+'/nariz/'+student.nose_style+".png')"});
+    avatar.find('.eyes').css({backgroundImage: "url('"+window.spriteBaseUrl+'/'+student.gender+'/olhos/'+student.eye_color+".png')"});
+    avatar.find('.uniform').css({backgroundImage: "url('"+window.spriteBaseUrl+'/'+student.gender+'/roupa/'+student.uniform+".png')"});
+}
+
+function loadProfile(){
+	
+}
