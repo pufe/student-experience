@@ -2,10 +2,10 @@ class AdventureAssignment < ActiveRecord::Base
   belongs_to :student
 
   belongs_to :adventure
-  has_many :adventure_missions, through: :adventure, class_name: 'Mission', foreign_key: :mission_id
+  has_many :adventure_missions, through: :adventure, class_name: 'Mission', source: :missions
 
   has_many :mission_assignments
-  has_many :assigned_missions, through: :mission_assignments, class_name: 'Mission', foreign_key: :mission_id
+  has_many :assigned_missions, through: :mission_assignments, class_name: 'Mission', source: :mission
 
   scope :complete, ->{ where(completed: true) }
   scope :incomplete, ->{ where(completed: false) }

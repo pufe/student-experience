@@ -3,7 +3,7 @@ class Student < ActiveRecord::Base
   has_many :adventures, through: :adventure_assignments
 
   has_many :ownerships
-  has_many :equipments, through: :ownerships
+  has_many :items, through: :ownerships
 
   def available_adventures
     Adventure.where.not(id: locked_adventures)

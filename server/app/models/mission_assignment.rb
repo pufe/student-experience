@@ -1,9 +1,10 @@
 class MissionAssignment < ActiveRecord::Base
   belongs_to :mission
-  has_many :mission_questions, through: :mission, class_name: "Question", foreign_key: :questions_id
+  has_many :mission_questions, through: :mission, class_name: "Question", source: :questions
 
   has_many :answer_attempts, dependent: :destroy
-  has_many :answered_questions, through: :answer_attempts, class_name: "Question", foreign_key: :questions_id
+  has_many :question_options, through: :answer_attempts
+  has_many :answered_questions, through: :question_options, class_name: "Question", source: :question
 
   belongs_to :adventure_assignment
   has_one :student, through: :adventure_assignment

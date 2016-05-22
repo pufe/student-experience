@@ -14,15 +14,17 @@ class MissionsController < ApiController
   end
 
   def show
-    mission = @adventure_assignment.missions.find_by(id: params[:mission_id])
+    mission = @adventure_assignment.assigned_missions.find_by(id: params[:mission_id])
     return error_404 unless mission.present?
     return success(mission.attributes.merge(questions: mission.questions))
   end
 
   def accept
-    mission = @adventure_assignment.adventure.missions.find_by(id: params[:mission_id])
+    mission = @adventure_assignment.adventure_missions.find_by(id: params[:mission_id])
     return error_404 unless mission.present?
-    return error(401, 'Already in this mission') if @adventure_assignment.missions.where(id: mission.id).exists?
+    if @adventure_assignment.assigned_missions.where(id: mission.id).exists?
+      return error(401, 'Already in this mission')
+    end
 
     mission_assignment = @adventure_assignment.mission_assignments.create(mission_id: mission.id)
     return success(mission_assignment)
