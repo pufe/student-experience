@@ -3,22 +3,30 @@ class CreateAdventure < ActiveRecord::Migration
     create_table :adventures do |t|
       t.string :name
       t.text :description
+      t.string :subject
+      t.integer :previous_adventure_id
+      t.timestamp :unlocked_at
+    end
+
+    create_table :adventure_assignments do |t|
+      t.references :student
+      t.references :adventure
+      t.boolean :completed, default: false
+      t.integer :student_level, default: 1
+      t.timestamps
     end
 
     create_table :missions do |t|
       t.string :name
       t.text :description
       t.integer :level
-    end
-
-    create_table :mission_prerequisites do |t|
-      t.integer :blocked_mission_id
-      t.integer :blocker_mission_id
+      t.references :adventure
     end
 
     create_table :questions do |t|
       t.text :description
       t.references :mission
+      t.integer :difficulty
     end
 
     create_table :question_options do |t|
@@ -53,9 +61,9 @@ class CreateAdventure < ActiveRecord::Migration
     end
 
     create_table :mission_assignments do |t|
-      t.references :student
+      t.references :adventure_assignment
       t.references :mission
-      t.string :status, default: 'start'
+      t.boolean :completed, default: false
       t.timestamps
     end
 

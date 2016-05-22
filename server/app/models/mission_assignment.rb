@@ -3,7 +3,12 @@ class MissionAssignment < ActiveRecord::Base
   belongs_to :student
   has_many :answer_attempts
 
-  STATES = %w(new failed success abandoned)
+  scope :completed, -> { where(status: 'success') }
+  scope :todo, -> { where(status: 'new') }
+  scope :failed, -> { where(status: 'failed') }
 
-  validates :state, inclusion: {in: STATES}
+
+  STATES = %w(todo failed completed)
+
+  validates :status, inclusion: {in: STATES}
 end

@@ -1,12 +1,16 @@
 class StudentsController < ApiController
+  def index
+    success(Student.all)
+  end
+
   def show
-    student = Student.find_by(id: params[:id])
+    student = Student.find_by(id: params[:student_id])
     return error_404 unless student.present?
     success(student)
   end
 
   def edit
-    student = Student.find_by(id: params[:id])
+    student = Student.find_by(id: params[:student_id])
     return error_404 unless student.present?
 
     appearance_attributes.each do |attr|
