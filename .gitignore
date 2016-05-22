@@ -1,2 +1,9 @@
 # ignores pufe's emacs backups
 *~
+
+# ignores css compiled files
+*.css
+
+# ignores installed modules
+node_modules
+typings
