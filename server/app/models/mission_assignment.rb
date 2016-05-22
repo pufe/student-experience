@@ -1,14 +1,27 @@
 class MissionAssignment < ActiveRecord::Base
   belongs_to :mission
-  belongs_to :student
-  has_many :answer_attempts
+  has_many :mission_questions, through: :mission, class_name: "Question", foreign_key: :questions_id
 
-  scope :completed, -> { where(status: 'success') }
-  scope :todo, -> { where(status: 'new') }
-  scope :failed, -> { where(status: 'failed') }
+  has_many :answer_attempts, dependent: :destroy
+  has_many :answered_questions, through: :answer_attempts, class_name: "Question", foreign_key: :questions_id
 
+  belongs_to :adventure_assignment
+  has_one :student, through: :adventure_assignment
 
-  STATES = %w(todo failed completed)
+  scope :complete, ->{ where(completed: true) }
+  scope :incomplete, ->{ where(completed: false) }
 
-  validates :status, inclusion: {in: STATES}
+  def update_status!
+    if student.current_hp <= 0
+      destroy!
+    elsif !mission_questions.where.not(id: answered_questions).exists?
+      complete!
+    end
+  end
+
+  def complete!
+    completed = true
+    save!
+    adventure_assignmnet.update_status!
+  end
 end

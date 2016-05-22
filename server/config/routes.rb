@@ -23,11 +23,17 @@ Rails.application.routes.draw do
     get '/mission/completed' => :completed
     get '/mission/todo' => :todo
     get '/mission/:mission_id' => :show
-    post '/mission/accept/:mission_id' => :accept
-    post '/mission/reject/:mission_id' => :reject
+    post '/mission/:mission_id/accept' => :accept
+    post '/mission/:mission_id/reject' => :reject
   end
 
   controller :questions do
-    post '/question/:id/answer' => :answer
+    get '/question' => :index
+    get '/question/answered' => :answered
+    get '/question/unanswered' => :unanswered
+    get '/question/:question_id' => :show
+    post '/question/:question_id/answer' => :answer
   end
+
+  match '*foo', via: :all, to: lambda {|env| [404, {}, [{status: 404,error: "Not found"}.to_json]] }
 end

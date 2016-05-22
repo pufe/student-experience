@@ -41,7 +41,7 @@ class MissionsController < ApiController
     @student = Student.find_by(id: params[:student_id])
     @adventure_assignment = AdventureAssignment.find_by(student_id: params[:student_id],
                                                         adventure_id: params[:adventure_id])
-    return error_404 unless [@adventure, @student, @adventure_assignment].all(&:present?)
+    return error_404 unless [@adventure, @student, @adventure_assignment].all?(&:present?)
     true
   end
 end
