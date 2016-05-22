@@ -26,7 +26,7 @@ class StudentsController < ApiController
 
   private
   def appearance_attributes
-    %i(nickname hair_style eye_color nose_style gender skin_color)
+    %i(nickname hair_style hair_color eye_color nose_style gender skin_color full_name email password)
   end
 
   def login_attributes

@@ -21,12 +21,14 @@ class CreateAdventure < ActiveRecord::Migration
       t.text :description
       t.integer :level
       t.references :adventure
+      t.integer :xp_reward
     end
 
     create_table :questions do |t|
       t.text :description
       t.references :mission
       t.integer :difficulty
+      t.integer :gold_reward
     end
 
     create_table :question_options do |t|
@@ -48,17 +50,22 @@ class CreateAdventure < ActiveRecord::Migration
 
       t.string :nickname
       t.string :hair_style
+      t.string :hair_color
       t.string :eye_color
       t.string :nose_style
       t.string :gender
       t.string :skin_color
       t.string :uniform
 
-      # t.integer :level, default: 1
-      # t.integer :total_xp, default: 0
-      # t.integer :current_xp, default: 0
-      # t.integer :max_hp, default: 100
-      # t.integer :current_hp, default: 100
+      t.integer :level, default: 1
+      t.integer :total_xp, default: 0
+      t.integer :current_xp, default: 0
+      t.integer :next_level_xp, default: 100
+
+      t.integer :max_hp, default: 3
+      t.integer :current_hp, default: 3
+      t.integer :gold, default: 0
+      t.integer :cash, default: 0
     end
 
     create_table :mission_assignments do |t|
@@ -74,15 +81,33 @@ class CreateAdventure < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :equipments do |t|
+    create_table :items do |t|
+      t.boolean :consummable
+      t.string :name
       t.string :icon
       t.string :image
+      t.string :slot
+      t.string :effect
+      t.integer :gold_price
+      t.integer :cash_price
     end
 
     create_table :ownerships do |t|
       t.references :student
-      t.references :equipment
+      t.references :item
+      t.integer :quantity
       t.boolean :equipped
+    end
+
+    create_table :achievements do |t|
+      t.references :student
+      t.references :badge
+    end
+
+    create_table :badges do |t|
+      t.string :icon
+      t.string :name
+      t.text :description
     end
   end
 end

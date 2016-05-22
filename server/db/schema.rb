@@ -13,6 +13,11 @@
 
 ActiveRecord::Schema.define(version: 20160521211731) do
 
+  create_table "achievements", force: true do |t|
+    t.integer "student_id"
+    t.integer "badge_id"
+  end
+
   create_table "adventure_assignments", force: true do |t|
     t.integer  "student_id"
     t.integer  "adventure_id"
@@ -37,9 +42,21 @@ ActiveRecord::Schema.define(version: 20160521211731) do
     t.datetime "updated_at"
   end
 
-  create_table "equipments", force: true do |t|
+  create_table "badges", force: true do |t|
     t.string "icon"
-    t.string "image"
+    t.string "name"
+    t.text   "description"
+  end
+
+  create_table "items", force: true do |t|
+    t.boolean "consummable"
+    t.string  "name"
+    t.string  "icon"
+    t.string  "image"
+    t.string  "slot"
+    t.string  "effect"
+    t.integer "gold_price"
+    t.integer "cash_price"
   end
 
   create_table "mission_assignments", force: true do |t|
@@ -55,11 +72,13 @@ ActiveRecord::Schema.define(version: 20160521211731) do
     t.text    "description"
     t.integer "level"
     t.integer "adventure_id"
+    t.integer "xp_reward"
   end
 
   create_table "ownerships", force: true do |t|
     t.integer "student_id"
-    t.integer "equipment_id"
+    t.integer "item_id"
+    t.integer "quantity"
     t.boolean "equipped"
   end
 
@@ -79,19 +98,29 @@ ActiveRecord::Schema.define(version: 20160521211731) do
     t.text    "description"
     t.integer "mission_id"
     t.integer "difficulty"
+    t.integer "gold_reward"
   end
 
   create_table "students", force: true do |t|
-    t.string "real_name"
-    t.string "email"
-    t.string "password"
-    t.string "nickname"
-    t.string "hair_style"
-    t.string "eye_color"
-    t.string "nose_style"
-    t.string "gender"
-    t.string "skin_color"
-    t.string "uniform"
+    t.string  "real_name"
+    t.string  "email"
+    t.string  "password"
+    t.string  "nickname"
+    t.string  "hair_style"
+    t.string  "hair_color"
+    t.string  "eye_color"
+    t.string  "nose_style"
+    t.string  "gender"
+    t.string  "skin_color"
+    t.string  "uniform"
+    t.integer "level",         default: 1
+    t.integer "total_xp",      default: 0
+    t.integer "current_xp",    default: 0
+    t.integer "next_level_xp", default: 100
+    t.integer "max_hp",        default: 3
+    t.integer "current_hp",    default: 3
+    t.integer "gold",          default: 0
+    t.integer "cash",          default: 0
   end
 
 end
