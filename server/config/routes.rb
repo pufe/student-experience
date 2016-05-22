@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  root 'welcome#index'
+  controller :welcome do
+    get '/' => :index
+    get '/trocar_aparencia' => :trocar
+  end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
