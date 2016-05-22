@@ -1,0 +1,16 @@
+
+.avatar {
+	display: block;
+	width: 248px;
+	height: 293px;
+	position: relative;
+
+	.piece {
+		display: block;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		background-repeat: no-repeat;
+		background-size: contain;
+	}
+}

@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
-import { DashboardComponent }  from './components/dashboard.component';
+import { DashboardComponent }  from './components/dashboard';
+import { StudentService }  from './services/student';
 
 @Component({
   selector: 'my-app',
   templateUrl: 'templates/main.html',
   directives: [ROUTER_DIRECTIVES],
   providers: [
-    ROUTER_PROVIDERS,
-    //HeroService,
+    ROUTER_PROVIDERS
   ]
 })
 
